@@ -42,6 +42,11 @@ Multimodal-VQA/
 │ ├── image_data_with_vqa.csv # Generated Q&A pairs (intermediate)
 │ ├── image_data_with_vqa1.csv # Additional VQA runs
 │ └── merged_image_data_vqa.csv # Final merged dataset
+├── Inference Script/
+|   ├── requirements.txt
+|   └── inference.py
+├── Models/
+|   └── ..
 ├── .env # Environment file with API keys (!! ADD TO .gitignore !!)
 ├── requirements.txt # Python dependencies
 ├── make_vqa.py # Script to generate Q&A via API (with key rotation)
