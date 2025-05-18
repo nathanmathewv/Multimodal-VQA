@@ -64,7 +64,7 @@ Multimodal-VQA/
         *   `image_data_with_vqa.csv`: An intermediate CSV file with generated VQA pairs from an initial run.
         *   `merged_image_data_vqa.csv`: The final, consolidated dataset combining all image metadata and VQA pairs.
 *   **`Models/`**: Contains all models that were run.
-*   **`Inference Script/`**: Contains the inference script and the `requirements.txt` file for it.
+*   **`Inference Script/`**: Contains the `inference.py` script and the `requirements.txt` file for it.
 *   **`.env`**: Stores sensitive information like API keys. **Important:** This file should be listed in your `.gitignore` file to prevent committing secrets.
 *   **`requirements.txt`**: Lists all Python packages required to run the project. Install with `pip install -r requirements.txt`.
 *   **`make_vqa.py`**: Python script responsible for generating Visual Question Answering (VQA) pairs using Gemini API, likely incorporating logic for API key rotation to manage rate limits or usage quotas.
