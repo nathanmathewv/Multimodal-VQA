@@ -39,20 +39,17 @@ Multimodal-VQA/
 │ └── metadata/ # CSVs and metadata files
 │ ├── image_data.csv # Original image + listing metadata
 │ ├── image_data_with_vqa.csv # Generated Q&A pairs (intermediate)
-│ ├── image_data_with_vqa1.csv # Additional VQA runs
 │ └── merged_image_data_vqa.csv # Final merged dataset
 ├── Inference Script/
 |   ├── requirements.txt
 |   └── inference.py
 ├── Models/
-|   └── ..
+|   └── blip-vqa.ipynb 
+|   └── ....
 ├── .env # Environment file with API keys (!! ADD TO .gitignore !!)
 ├── requirements.txt # Python dependencies
 ├── make_vqa.py # Script to generate Q&A via API (with key rotation)
-├── merge_csvs.py # Script to merge multiple VQA CSVs into one
-├── count_yesno.py # Script to count yes/no questions in the dataset
-├── Blip2_model.py # Script for zero‐shot inference & evaluation with BLIP-2
-├── model_lora.py # Script to fine-tune the VQA model with LoRA
+├── merge_csv.py # Script to merge multiple VQA CSVs into one
 ├── Mini-Project-Statement.pdf # Project statement and objectives
 └── README.md # Project overview and usage instructions
 ```
@@ -65,30 +62,33 @@ Multimodal-VQA/
     *   **`Dataset/metadata/`**: Houses all CSV files and other metadata.
         *   `image_data.csv`: The initial dataset containing image identifiers and associated metadata.
         *   `image_data_with_vqa.csv`: An intermediate CSV file with generated VQA pairs from an initial run.
-        *   `image_data_with_vqa1.csv`: CSV from additional VQA generation runs.
         *   `merged_image_data_vqa.csv`: The final, consolidated dataset combining all image metadata and VQA pairs.
 *   **`Models/`**: Contains all models that were run.
 *   **`Inference Script/`**: Contains the inference script and the `requirements.txt` file for it.
 *   **`.env`**: Stores sensitive information like API keys. **Important:** This file should be listed in your `.gitignore` file to prevent committing secrets.
 *   **`requirements.txt`**: Lists all Python packages required to run the project. Install with `pip install -r requirements.txt`.
-*   **`make_vqa.py`**: Python script responsible for generating Visual Question Answering (VQA) pairs using an external API, likely incorporating logic for API key rotation to manage rate limits or usage quotas.
-*   **`merge_csvs.py`**: Utility script to combine multiple CSV files (e.g., from different VQA generation runs) into a single, unified CSV.
-*   **`count_yesno.py`**: A script to analyze the generated VQA dataset and count the occurrences of "yes/no" type questions.
-*   **`Blip2_model.py`**: Implements zero-shot inference and evaluation capabilities using the BLIP-2 model.
-*   **`model_lora.py`**: Script for fine-tuning a VQA model using Low-Rank Adaptation (LoRA) techniques for efficient adaptation.
-*   **`Mini-Project-Statement.pdf`**: The document outlining the project's goals, scope, and objectives.
-*   **`README.md`**: This file, providing an overview of the project, setup instructions, and usage guidelines.
+*   **`make_vqa.py`**: Python script responsible for generating Visual Question Answering (VQA) pairs using Gemini API, likely incorporating logic for API key rotation to manage rate limits or usage quotas.
+*   **`merge_csv.py`**: Utility script to combine multiple CSV files (e.g., from different VQA generation runs by the API . ) into a single, unified CSV.
 
 
 ## Prerequisites
 - Python 3.9+
 - Git  
 
+## Dataset
+
+We use the **Amazon–Berkeley Objects** (ABO) dataset for both images and metadata. You can download the raw data here:
+
+https://amazon-berkeley-objects.s3.amazonaws.com/index.html#download
+
+We used `abo-listings.tar` and `abo-images-small.tar` to curate our dataset.
+
+
 ## Installation
 1. Clone the repository  
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone https://github.com/nathanmathewv/Multimodal-VQA.git
+   cd Multimodal-VQA
    ```
 2. Create and activate a virtual environment
     ```bash
@@ -108,7 +108,40 @@ Multimodal-VQA/
     API_KEY_1=your_first_api_key
     API_KEY_2=your_second_api_key
     ```
-5. Create your Dataset folder from ABO
+
+## Running the Code
+
+1. Create your Dataset folder from ABO
+    After downloading the zip files from the [ABO website](https://amazon-berkeley-objects.s3.amazonaws.com/index.html#download), extract them and store it in a folder `Dataset/metadata`. 
+    to run merge all the listings to a single json file `merged_listings.json`.
+    ```bash
+    run metadata_extraction.ipynb
+    ```
+
+    to match the metadata with the images and store a subset of images in `Dataset/final_dataset`
+    ```bash
+    run match_listing_image.ipynb
+    ```
+
+    We have around 20K images in our `Dataset/final_dataset` folder.
+    
+2. Create Visual Question Answer Pairs using Gemini API
+    Choose a start index and an end index to generate question and answer pairs for your images stored in `Dataset/final_dataset` . Have enough API keys from gemini for this . 
+    ```bash
+    python make_vqa.py
+    ```
+
+3. Building VQA Models
+
+    To train and benchmark our Visual Question Answering architectures, we use the “Images-with-VQAs” dataset which we uploaded to Kaggle after following the above steps. This collection provides paired images and concise, one-word answers—exactly. You can download it here:
+
+    [Images-with-VQAs Dataset on Kaggle](https://www.kaggle.com/datasets/nathanmathew/images-with-vqas)
+
+    ```bash
+    run the jupyter notebooks interactively in Models/
+    ```
+
+
 
 ## Running the Inference Code
 
@@ -119,6 +152,7 @@ To run the inference script using our fine-tuned BLIP model:
 Ensure you are in a Python 3.9 virtual environment and have installed the required dependencies:
 
 ```bash
+cd 'Inference Script'
 pip install -r requirements.txt
 ```
 
