@@ -5,7 +5,7 @@
 - [Repository Structure](#repository-structure)  
 - [Prerequisites](#prerequisites)  
 - [Installation](#installation)  
-- [Running the Code](#running-the-code)  
+- [Running the Code](#running-the-inference-code)  
 - [Results](#results)  
 - [Report](#report)  
 
