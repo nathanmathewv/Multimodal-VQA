@@ -80,8 +80,7 @@ Multimodal-VQA/
 
 
 ## Prerequisites
-List any system-level dependencies and language runtimes. For example:
-- Python 3.8+  
+- Python 3.9+
 - Git  
 
 ## Installation
@@ -110,7 +109,52 @@ List any system-level dependencies and language runtimes. For example:
     ```
 5. Create your Dataset folder from ABO
 
-## Running the Code 
+## Running the Inference Code
+
+To run the inference script using our fine-tuned BLIP model:
+
+#### Requirements
+
+Ensure you are in a Python 3.9 virtual environment and have installed the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+#### Image & CSV Path
+
+* **Image Directory:**
+   `IMAGE_DIR`
+
+* **CSV File:**
+  `CSV_PATH`
+
+---
+
+#### Run the Script
+
+Use the following command to execute `inference.py`:
+
+```bash
+python3 inference.py \
+  --image_dir IMAGE_DIR \
+  --csv_path CSV_PATH
+```
+
+---
+
+#### Output
+
+The predictions will be saved to a file named:
+
+```
+results.csv
+```
+
+in the current directory.
+
 
 ## Report 
 For a detailed explanation of the methodology, experiments, and results, see the full project report:
