@@ -158,4 +158,4 @@ in the current directory.
 
 ## Report 
 For a detailed explanation of the methodology, experiments, and results, see the full project report:
-[Project_Report.pdf](Report.pdf)
+[Project_Report.pdf](https://github.com/nathanmathewv/Multimodal-VQA/blob/main/VR_Report.pdf)
