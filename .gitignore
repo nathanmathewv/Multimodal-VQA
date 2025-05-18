@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 Dataset
+inference_images
 .DS_Store
 
 # Distribution / packaging
